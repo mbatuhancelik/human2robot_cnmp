@@ -1,0 +1,10 @@
+marker:
+  square_size: 0.045
+  square_marker_ratio: 1.64705882 # 28.0 / 17.0
+
+camera:
+  color_image_topic: "/torobo/head/camera/color/image_raw"
+  camera_info_topic: "/torobo/head/camera/color/camera_info"
+  camera_base_id: "head/link_tip"
+  camera_link_id: "head/camera_link"
+  camera_color_optical_frame_id: "head/camera_color_optical_frame"

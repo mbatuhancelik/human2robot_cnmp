@@ -1,0 +1,218 @@
+<?xml version="1.0"?>
+<robot name="torobo" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- =============== Load Dependencies =============== -->
+  <!-- =============== Constants =============== -->
+  <xacro:property name="M_PI" value="3.1415926535897931"/>
+
+  <!-- =============== Link & Joint =============== -->
+
+  <joint name="left_arm/root" type="fixed">
+    <origin xyz="0 -0.285 0.0175" rpy="0 0 0"/>
+    <parent link="torso_head/link_2"/>
+    <child link="left_arm/link_0"/>
+  </joint>
+
+  <link name="left_arm/link_0">
+    <visual>
+      <geometry>
+        <mesh filename="package://torobo_resources/TRBK-L-K-001-6/meshes/left_link0.dae" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://torobo_resources/TRBK-L-K-001-6/meshes/left_link0.dae" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0.000 0 0.033"/>
+      <mass value="1.3"/>
+      <inertia
+        ixx="1.823909e-3" ixy="1.174037e-6" ixz="-2.264764e-5"
+        iyy="1.896348e-3" iyz="3.683140e-7" izz="2.648658e-3"/>
+    </inertial>
+  </link>
+
+  <joint name="left_arm/joint_1" type="revolute">
+    <parent link="left_arm/link_0"/>
+    <child link="left_arm/link_1"/>
+    <origin xyz="0.0 0 0.184" rpy="0 ${180*M_PI/180} ${90*M_PI/180}"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="${-70*M_PI/180}" upper="${250*M_PI/180}" effort="60" velocity="${150*M_PI/180}"/>
+  </joint>
+
+  <link name="left_arm/link_1">
+    <visual>
+      <origin xyz="-0.020 0 0" rpy="0 ${180*M_PI/180} ${0*M_PI/180}"/>
+      <geometry>
+        <mesh filename="package://torobo_resources/TRBK-L-K-001-6/meshes/left_link1.dae" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-0.020 0 0" rpy="0 ${180*M_PI/180} ${0*M_PI/180}"/>
+      <geometry>
+        <mesh filename="package://torobo_resources/TRBK-L-K-001-6/meshes/left_link1.dae" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-0.008 0 0"/>
+      <mass value="2.5"/>
+      <inertia
+        ixx="8.630040e-3" ixy="1.771930e-4" ixz="-1.094243e-3"
+        iyy="8.950839e-3" iyz="6.642460e-4" izz="2.909357e-3"/>
+    </inertial>
+  </link>
+
+  <joint name="left_arm/joint_2" type="revolute">
+    <parent link="left_arm/link_1"/>
+    <child link="left_arm/link_2"/>
+    <origin xyz="-0.02 0 0" rpy="${-90*M_PI/180} ${180*M_PI/180} 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="${-45*M_PI/180}" upper="${105*M_PI/180}" effort="60" velocity="${150*M_PI/180}"/>
+  </joint>
+
+  <link name="left_arm/link_2">
+    <visual>
+      <geometry>
+        <mesh filename="package://torobo_resources/TRBK-L-K-001-6/meshes/left_link2.dae" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://torobo_resources/TRBK-L-K-001-6/meshes/left_link2.dae" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 -0.051 0"/>
+      <mass value="1.5"/>
+      <inertia
+        ixx="5.177046e-3" ixy="3.820547e-6" ixz="2.518841e-5"
+        iyy="2.218460e-3" iyz="7.833479e-4" izz="5.358602e-3"/>
+    </inertial>
+  </link>
+
+  <joint name="left_arm/joint_3" type="revolute">
+    <parent link="left_arm/link_2"/>
+    <child link="left_arm/link_3"/>
+    <origin xyz="0 -0.255 0" rpy="${-90*M_PI/180} 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="${-160*M_PI/180}" upper="${160*M_PI/180}" effort="27" velocity="${180*M_PI/180}"/>
+  </joint>
+
+  <link name="left_arm/link_3">
+    <visual>
+      <origin xyz="0 0 0" rpy="${-180*M_PI/180} 0 0"/>
+      <geometry>
+        <mesh filename="package://torobo_resources/TRBK-L-K-001-6/meshes/left_link3.dae" scale="0.01 0.01 0.01"/> 
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="${-180*M_PI/180} 0 0"/>
+      <geometry>
+        <mesh filename="package://torobo_resources/TRBK-L-K-001-6/meshes/left_link3.dae" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0.086"/>
+      <mass value="1.6"/>
+      <inertia
+        ixx="4.999676e-3" ixy="3.065523e-5" ixz="-4.311442e-5"
+        iyy="4.969554e-3" iyz="-7.728593e-4" izz="1.496601e-3"/>
+    </inertial>
+  </link>
+
+  <joint name="left_arm/joint_4" type="revolute">
+    <parent link="left_arm/link_3"/>
+    <child link="left_arm/link_4"/>
+    <origin xyz="0 0 0" rpy="${90*M_PI/180} 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="${-50*M_PI/180}" upper="${115*M_PI/180}" effort="27" velocity="${180*M_PI/180}"/>
+  </joint>
+
+  <link name="left_arm/link_4">
+    <visual>
+      <geometry>
+        <mesh filename="package://torobo_resources/TRBK-L-K-001-6/meshes/left_link4.dae" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://torobo_resources/TRBK-L-K-001-6/meshes/left_link4.dae" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 -0.044 0"/>
+      <mass value="2.0"/>
+      <inertia
+        ixx="6.798778e-3" ixy="-1.487347e-6" ixz="2.729160e-5"
+        iyy="1.759960e-3" iyz="1.118735e-5" izz="6.584351e-3"/>
+    </inertial>
+  </link>
+
+  <joint name="left_arm/joint_5" type="revolute">
+    <parent link="left_arm/link_4"/>
+    <child link="left_arm/link_5"/>
+    <origin xyz="0 -0.240 0" rpy="${-90*M_PI/180} 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="${-160*M_PI/180}" upper="${160*M_PI/180}" effort="13" velocity="${180*M_PI/180}"/>
+  </joint>
+
+  <link name="left_arm/link_5">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 ${-180*M_PI/180} ${-180*M_PI/180}"/>
+      <geometry>
+        <mesh filename="package://torobo_resources/TRBK-L-K-001-6/meshes/left_link5.dae" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 ${-180*M_PI/180} ${-180*M_PI/180}"/>
+      <geometry>
+        <mesh filename="package://torobo_resources/TRBK-L-K-001-6/meshes/left_link5.dae" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0.045"/>
+      <mass value="0.5"/>
+      <inertia
+        ixx="9.617007e-4" ixy="-1.739200e-6" ixz="-5.517080e-6"
+        iyy="8.139339e-4" iyz="-3.249001e-4" izz="4.818315e-4"/>
+    </inertial>
+  </link>
+
+  <joint name="left_arm/joint_6" type="revolute">
+    <parent link="left_arm/link_5"/>
+    <child link="left_arm/link_6"/>
+    <origin xyz="0 0 0" rpy="${90*M_PI/180} 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="${-105*M_PI/180}" upper="${105*M_PI/180}" effort="13" velocity="${180*M_PI/180}"/>
+  </joint>
+
+  <link name="left_arm/link_6">
+    <visual>
+      <geometry>
+        <mesh filename="package://torobo_resources/TRBK-L-K-001-6/meshes/left_link6.dae" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://torobo_resources/TRBK-L-K-001-6/meshes/left_link6.dae" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 -0.007 0"/>
+      <mass value="0.9"/>
+      <inertia
+        ixx="4.555000e-3" ixy="-1.344679e-5" ixz="5.144200e-8"
+        iyy="1.374134e-3" iyz="-2.347689e-5" izz="4.519247e-3"/>
+
+    </inertial>
+  </link>
+
+  <joint name="left_arm/joint_tip" type="fixed">
+    <parent link="left_arm/link_6"/>
+    <child link ="left_arm/link_tip"/>
+    <origin xyz="0 -0.057 0" rpy="${90*M_PI/180} ${180*M_PI/180} 0"/>
+  </joint>
+  <link name="left_arm/link_tip"/>
+
+</robot>

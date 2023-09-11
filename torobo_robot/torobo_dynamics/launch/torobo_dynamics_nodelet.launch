@@ -1,0 +1,25 @@
+<launch>
+
+    <arg name="manager" default="nodelet_manager"/>
+    <arg name="nodelet" default="false"/>
+    <arg name="debug" default="false"/>
+    <arg name="sim" default="true"/>
+    <arg name="rate" default="200"/>
+
+    <group ns="torobo">
+
+        <group if="$(arg nodelet)">
+            <node pkg="nodelet" type="nodelet" args="manager" name="$(arg manager)"
+                output="screen"/>
+        </group>
+
+        <node pkg="nodelet" type="nodelet" name="torobo_dynamics_nodelet"
+              args="load torobo_dynamics/torobo_dynamics_nodelet $(arg manager)"
+              output="screen">
+              <param name="debug"  value="$(arg debug)"/>
+              <param name="sim"  value="$(arg sim)"/>
+              <param name="rate" value="$(arg rate)"/>
+        </node>
+    </group>
+
+</launch>

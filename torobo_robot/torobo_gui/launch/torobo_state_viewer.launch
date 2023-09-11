@@ -1,0 +1,7 @@
+<launch>
+
+    <node pkg="torobo_gui" name="torobo_state_viewer_spawner_node" type="torobo_state_viewer_spawner.py" ns="torobo" output="screen"
+          args="--pkg=rqt_gui --type=rqt_gui --name=torobo_state_viewer --output=screen
+                --perspective_dir=$(find torobo_gui)/perspective"/>
+
+</launch>

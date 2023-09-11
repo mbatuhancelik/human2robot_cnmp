@@ -1,0 +1,15 @@
+<launch>
+
+  <group ns="torobo">
+
+    <node name="camera_link_tf_estimater_node" pkg="torobo_camera"
+        type="camera_link_tf_estimator.py" respawn="false" output="screen"
+        args="--config=$(find torobo_camera)/config/config.yaml
+              --marker_tf_data=$(find torobo_camera)/config/marker_tf.yaml
+              --camera_link_tf_data=$(find torobo_camera)/config/camera_link_tf.yaml
+              " />
+
+  </group>
+
+</launch>
+

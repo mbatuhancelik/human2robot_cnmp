@@ -1,0 +1,8 @@
+<launch>
+    
+    <group ns="torobo">
+        <param name="~controller_name" value="arm_controller"/>
+        <test test-name="test_robot_description_parser" pkg="torobo_common" type="test_robot_description_parser" ns="torobo"/>
+    </group>
+
+</launch>

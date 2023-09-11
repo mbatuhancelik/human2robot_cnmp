@@ -1,0 +1,61 @@
+torobo_controller_config:
+  left_arm_controller:
+    # Connection type (USB or Ethernet)
+    # - connection_type: USB
+    - connection_type: Ethernet
+  
+    # Ethernet connection config
+    - ethernet: {
+        master_controller_ip: 10.10.253.200,
+        master_controller_port: 50000
+      }
+
+    # Serial Port connection config
+    - serial_port: {
+        master_controller_device_name: /dev/ttyUSB0,
+        master_controller_baudrate: 3000000
+      }
+
+    # controller definitions
+    - controller_name: left_arm_controller
+  
+  right_arm_controller:
+    # Connection type (USB or Ethernet)
+    # - connection_type: USB
+    - connection_type: Ethernet
+  
+    # Ethernet connection config
+    - ethernet: {
+        master_controller_ip: 10.10.253.202,
+        master_controller_port: 50010
+      }
+  
+    # Serial Port connection config
+    - serial_port: {
+        master_controller_device_name: /dev/ttyUSB1,
+        master_controller_baudrate: 3000000
+      }
+
+    # controller definitions
+    - controller_name: right_arm_controller
+  
+  torso_head_controller:
+    # Connection type (USB or Ethernet)
+    # - connection_type: USB
+    - connection_type: Ethernet
+  
+    # Ethernet connection config
+    - ethernet: {
+        master_controller_ip: 10.10.253.204,
+        master_controller_port: 50020
+      }
+  
+    # Serial Port connection config
+    - serial_port: {
+        master_controller_device_name: /dev/ttyUSB2,
+        master_controller_baudrate: 3000000
+      }
+
+    # controller definitions
+    - controller_name: torso_controller
+    - controller_name: head_controller

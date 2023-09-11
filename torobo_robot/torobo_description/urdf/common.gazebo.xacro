@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- ros_control plugin -->
+  <gazebo>
+    <plugin name="torobo_gazebo_ros_control" filename="libtorobo_gazebo_ros_control.so">
+      <robotNamespace>/torobo</robotNamespace>
+      <robotSimType>torobo_gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      <legacyModeNS>false</legacyModeNS>
+    </plugin>
+  </gazebo>
+
+</robot>

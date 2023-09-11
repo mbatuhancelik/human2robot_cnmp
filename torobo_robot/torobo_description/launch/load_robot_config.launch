@@ -1,0 +1,32 @@
+<launch>
+
+  <arg name="product" default="$(optenv PRODUCT default)" />
+
+  <!-- load rosparam -->
+  <rosparam param="robot_config" command="load" file="$(find torobo_description)/config/products/$(arg product).yaml"/>
+
+  <!-- load robot description URDF -->
+  <param name="robot_description" command="
+      $(find xacro)/xacro --inorder '$(find torobo_description)/urdf/load_robot.urdf.xacro'
+      path:=$(find torobo_description)/config/products/$(arg product).yaml" />
+
+  <!-- The semantic description SRDF -->
+  <!-- In order to switch yaml, python code is in param's command. The launching sequence works synchronously with this param tag's command. -->
+  <param name="robot_description_semantic" command="
+      $(find torobo_description)/scripts/load_srdf.py 
+      --model_dir=$(find torobo_description)/config/models
+      --srdf=torobo.srdf
+      --robot_config=$(find torobo_description)/config/products/$(arg product).yaml
+      " />
+
+  <!-- load controller_config -->
+  <param name="/dummy" command="
+      $(find torobo_description)/scripts/load_controller_config.py 
+      --model_dir=$(find torobo_description)/config/models
+      --yaml=controllers.yaml
+      --robot_config=$(find torobo_description)/config/products/$(arg product).yaml
+      --dump_file=/tmp/torobo_rosparam_controller_config.yaml
+      " />
+  <rosparam command="load" file="/tmp/torobo_rosparam_controller_config.yaml" />
+
+</launch>

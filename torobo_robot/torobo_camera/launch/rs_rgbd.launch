@@ -1,0 +1,15 @@
+<launch>
+
+  <arg name="use_calib_data" default="true"/>
+
+  <!-- simulation (gazebo) -->
+  <group if="$(arg use_calib_data)">
+    <include file="$(find torobo_camera)/launch/camera_link_tf_publisher.launch"/>
+  </group>
+
+  <include file="$(find realsense2_camera)/launch/rs_rgbd.launch">
+    <arg name="camera" value="/torobo/head/camera"/>
+    <arg name="tf_prefix" value="head/camera"/>
+  </include>
+
+</launch>

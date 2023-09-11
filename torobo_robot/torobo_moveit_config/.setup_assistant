@@ -1,0 +1,10 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: torobo_description
+    relative_path: urdf/torobo.urdf.xacro
+  SRDF:
+    relative_path: config/torobo.srdf
+  CONFIG:
+    author_name: Tokyo Robotics
+    author_email: yo.watamura@gmail.com
+    generated_timestamp: 1512566642

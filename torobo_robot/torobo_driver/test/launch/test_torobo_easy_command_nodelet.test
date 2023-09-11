@@ -1,0 +1,11 @@
+<launch>
+    <param name="~controller_name" value="arm_controller"/>
+
+    <include file="$(find torobo_description)/launch/load_robot_config.launch" ns="torobo"/>
+    <include file="$(find torobo_driver)/launch/torobo_driver_nodelet.launch">
+        <arg name="mock" value="true"/>
+        <arg name="nodelet" value="true"/>
+    </include>
+
+    <test test-name="test_torobo_easy_command" pkg="torobo_driver" type="test_torobo_easy_command.py" ns="torobo"/>
+</launch>

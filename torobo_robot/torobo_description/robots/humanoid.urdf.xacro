@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- =============== Configure robot ================= -->
+  <xacro:macro name="torobo_humanoid_v0" params="robot_config">
+
+    <xacro:property name="base" value="${robot_config['base']}"/>
+    <xacro:property name="torso" value="${robot_config['torso']}"/>
+    <xacro:property name="head" value="${robot_config['head']}"/>
+    <xacro:property name="left_arm" value="${robot_config['left_arm']}"/>
+    <xacro:property name="right_arm" value="${robot_config['right_arm']}"/>
+    <xacro:property name="left_gripper" value="${robot_config['left_gripper']}"/>
+    <xacro:property name="right_gripper" value="${robot_config['right_gripper']}"/>
+
+    <!-- world -->
+    <link name="world"/>
+
+    <xacro:unless value="${base == ''}">
+      <xacro:include filename="$(find torobo_resources)/urdf/base/${base}/base.urdf.xacro"/>
+      <xacro:base_v0 prefix="" parent="world"> 
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </xacro:base_v0>
+    </xacro:unless>
+
+    <xacro:unless value="${torso == ''}">
+      <xacro:include filename="$(find torobo_resources)/urdf/torso/${torso}/torso.urdf.xacro"/>
+      <xacro:torso_v0 prefix="" parent="base/link_tip">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </xacro:torso_v0>
+    </xacro:unless>
+
+    <xacro:unless value="${head == ''}">
+      <xacro:include filename="$(find torobo_resources)/urdf/head/${head}/head.urdf.xacro"/>
+      <xacro:head_v0 prefix="" parent="torso/link_tip">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </xacro:head_v0>
+    </xacro:unless>
+
+    <xacro:unless value="${left_arm == ''}">
+      <xacro:include filename="$(find torobo_resources)/urdf/arm/${left_arm}/arm.urdf.xacro"/>
+      <xacro:arm_v0 prefix="left_" parent="torso/left_shoulder_link">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </xacro:arm_v0>
+    </xacro:unless>
+
+    <xacro:unless value="${right_arm == ''}">
+      <xacro:include filename="$(find torobo_resources)/urdf/arm/${right_arm}/arm.urdf.xacro"/>
+      <xacro:arm_v0 prefix="right_" parent="torso/right_shoulder_link">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+      </xacro:arm_v0>
+    </xacro:unless>
+
+    <xacro:unless value="${left_gripper == ''}">
+      <xacro:include filename="$(find torobo_resources)/urdf/gripper/${left_gripper}/gripper.urdf.xacro"/>
+      <xacro:gripper_v0 prefix="left_gripper/" parent="left_arm/link_tip" use_graspfix="false">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </xacro:gripper_v0>
+    </xacro:unless>
+
+    <xacro:unless value="${right_gripper == ''}">
+      <xacro:include filename="$(find torobo_resources)/urdf/gripper/${right_gripper}/gripper.urdf.xacro"/>
+      <xacro:gripper_v0 prefix="right_gripper/" parent="right_arm/link_tip" use_graspfix="false">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </xacro:gripper_v0>
+    </xacro:unless>
+
+  </xacro:macro>
+
+</robot>

@@ -1,0 +1,8 @@
+# "general_register_number" : Target general register number [0-3]
+# "parameter_name" : parameter name set to target general regiseter
+# "joint_names" : Target joint names
+int32 general_register_number
+string parameter_name
+string[] joint_names
+---
+bool success

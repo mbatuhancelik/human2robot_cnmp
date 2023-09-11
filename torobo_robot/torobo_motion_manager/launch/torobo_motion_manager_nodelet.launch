@@ -1,0 +1,27 @@
+<launch>
+
+    <arg name="debug" default="false"/>
+    <arg name="manager" default="nodelet_manager"/>
+    <arg name="nodelet" default="false"/>
+    <arg name="rate" default="100"/>
+    <arg name="timeout_sec" default="5"/>
+
+    <group ns="torobo">
+
+        <group if="$(arg nodelet)">
+            <node pkg="nodelet" type="nodelet" args="manager" name="$(arg manager)"
+                output="screen"/>
+        </group>
+  
+        <node pkg="nodelet" type="nodelet" name="torobo_motion_manager_nodelet"
+              args="load torobo_motion_manager/torobo_motion_manager_nodelet $(arg manager)"
+              output="screen">
+              <param name="debug"  value="$(arg debug)"/>
+              <param name="rate"   value="$(arg rate)"/>
+              <param name="timeout_sec" value="$(arg timeout_sec)"/>
+        </node>
+
+    </group>
+
+
+</launch>

@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- =============== Constants =============== -->
+  <xacro:property name="head_type" value="TRBK-H-K-006-2"/>
+  <xacro:property name="vis_mesh_scale"  value="1.0 1.0 1.0"/>
+  <xacro:property name="col_mesh_scale"  value="1.0 1.0 1.0"/>
+
+  <!-- =============== Load Dependencies =============== -->
+  <xacro:include filename="$(find torobo_resources)/urdf/common.xacro" />
+  <xacro:include filename="$(find torobo_resources)/urdf/head/${head_type}/head.gazebo.xacro" />
+  <xacro:include filename="$(find torobo_resources)/urdf/sensors/realsense/realsense_sr300.urdf.xacro" />
+
+  <!-- =============== Link & Joint =============== -->
+  <xacro:macro name="head_v0" params="prefix parent *joint_origin">
+
+    <joint name="${prefix}head/root" type="fixed">
+      <xacro:insert_block name="joint_origin"/>
+      <parent link="${parent}"/>
+      <child link="${prefix}head/link_0"/>
+    </joint>
+    <link name="${prefix}head/link_0">
+      <!-- set dummy inetial param for avoiding gazebo error -->
+      <inertial>
+        <mass value="1e-5"/>
+        <inertia
+          ixx="1e-8" ixy="0" ixz="0"
+          iyy="1e-8" iyz="0" izz="1e-8"/>
+      </inertial>
+    </link>
+
+    <joint name="${prefix}head/joint_1" type="revolute">
+      <parent link="${prefix}head/link_0"/>
+      <child link="${prefix}head/link_1"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="${-90*M_PI/180}" upper="${90*M_PI/180}" effort="10" velocity="${180*M_PI/180}"/>
+    </joint>
+  
+    <link name="${prefix}head/link_1">
+      <visual>
+        <geometry>
+          <mesh filename="package://torobo_resources/meshes/head/${head_type}/DAE/link1.dae" scale="${vis_mesh_scale}"/>
+        </geometry>
+        <material name="white"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://torobo_resources/meshes/head/${head_type}/STL/link1.stl" scale="${col_mesh_scale}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="-0.028 0.002 -0.005"/>
+        <mass value="0.681214"/>
+        <inertia
+          ixx="4.081641e-4" ixy="8.659100e-6" ixz="1.177480e-4"
+          iyy="6.160155e-4" iyz="-5.357700e-6" izz="5.151108e-4"/>
+      </inertial>
+    </link>
+  
+    <joint name="${prefix}head/joint_2" type="revolute">
+      <parent link="${prefix}head/link_1"/>
+      <child link="${prefix}head/link_2"/>
+      <origin xyz="-0.035 0 0" rpy="${-90*M_PI/180} 0 0"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="${-45*M_PI/180}" upper="${45*M_PI/180}" effort="10" velocity="${180*M_PI/180}"/>
+    </joint>
+  
+    <link name="${prefix}head/link_2">
+      <visual>
+        <geometry>
+          <mesh filename="package://torobo_resources/meshes/head/${head_type}/DAE/link2.dae" scale="${vis_mesh_scale}"/>
+        </geometry>
+        <material name="white"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://torobo_resources/meshes/head/${head_type}/STL/link2.stl" scale="${col_mesh_scale}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0.034 -0.065 -0.005"/>
+        <mass value="0.666210"/>
+        <inertia
+          ixx="2.065450e-3" ixy="5.310575e-4" ixz="-9.899790e-5"
+          iyy="2.390063e-3" iyz="1.654064e-4" izz="2.401329e-3"/>
+      </inertial>
+    </link>
+  
+    <joint name="${prefix}head/joint_tip" type="fixed">
+      <parent link="${prefix}head/link_2"/>
+      <child link="${prefix}head/link_tip"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+    <link name="${prefix}head/link_tip"/>
+  
+    <!-- Camera -->
+    <xacro:realsense_sr300_v0 prefix="${prefix}head/" parent="${prefix}head/link_tip">
+      <origin xyz="0.076 -0.105 0" rpy="${90*M_PI/180} 0 0"/>
+    </xacro:realsense_sr300_v0>
+  
+  
+    <!-- Gazebo -->
+    <xacro:head_gazebo_v0 prefix="${prefix}"/>
+  
+    <!-- =============== Transmission =============== -->
+    <simple_transmission name="${prefix}head/joint_1" reduction="1"/>
+    <simple_transmission name="${prefix}head/joint_2" reduction="1"/>
+
+  </xacro:macro>
+  
+</robot>

@@ -1,0 +1,9 @@
+# available control_mode_name
+# "position" : Position control mode
+# "velocity" : Velocity control mode
+# "current" : Current control mode
+# "external_force_following" : External force following control mode
+string control_mode_name
+string[] joint_names
+---
+bool success

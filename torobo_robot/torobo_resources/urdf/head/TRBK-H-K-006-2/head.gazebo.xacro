@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">  
+
+  <xacro:macro name="head_gazebo_v0" params="prefix">
+
+    <!-- head_link0 -->
+    <gazebo reference="${prefix}head/link_0">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+    </gazebo>
+  
+    <!-- head_link1 -->
+    <gazebo reference="${prefix}head/link_1">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+    </gazebo>
+  
+    <!-- head_link2 -->
+    <gazebo reference="${prefix}head/link_2">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+    </gazebo>
+
+    <!-- head_link_tip -->
+    <gazebo reference="${prefix}head/link_tip">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+    </gazebo>
+
+  </xacro:macro>
+
+</robot>

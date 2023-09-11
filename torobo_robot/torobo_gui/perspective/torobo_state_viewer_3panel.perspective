@@ -1,0 +1,106 @@
+{
+  "keys": {},
+  "groups": {
+    "pluginmanager": {
+      "keys": {
+        "running-plugins": {
+          "type": "repr",
+          "repr": "{u'torobo_gui/ToroboStateViewer': [1, 3, 2]}"
+        }
+      },
+      "groups": {
+        "plugin__torobo_gui__ToroboStateViewer__1": {
+          "keys": {},
+          "groups": {
+            "dock_widget__ToroboStateViewerUi": {
+              "keys": {
+                "dockable": {
+                  "type": "repr",
+                  "repr": "True"
+                },
+                "parent": {
+                  "type": "repr",
+                  "repr": "None"
+                },
+                "dock_widget_title": {
+                  "type": "repr",
+                  "repr": "u'Torobo State Viewer'"
+                }
+              },
+              "groups": {}
+            }
+          }
+        },
+        "plugin__torobo_gui__ToroboStateViewer__2": {
+          "keys": {},
+          "groups": {
+            "dock_widget__ToroboStateViewerUi": {
+              "keys": {
+                "dockable": {
+                  "type": "repr",
+                  "repr": "True"
+                },
+                "parent": {
+                  "type": "repr",
+                  "repr": "None"
+                },
+                "dock_widget_title": {
+                  "type": "repr",
+                  "repr": "u'Torobo State Viewer (2)'"
+                }
+              },
+              "groups": {}
+            }
+          }
+        },
+        "plugin__torobo_gui__ToroboStateViewer__3": {
+          "keys": {},
+          "groups": {
+            "dock_widget__ToroboStateViewerUi": {
+              "keys": {
+                "dockable": {
+                  "type": "repr",
+                  "repr": "True"
+                },
+                "parent": {
+                  "type": "repr",
+                  "repr": "None"
+                },
+                "dock_widget_title": {
+                  "type": "repr",
+                  "repr": "u'Torobo State Viewer (3)'"
+                }
+              },
+              "groups": {}
+            }
+          }
+        }
+      }
+    },
+    "mainwindow": {
+      "keys": {
+        "geometry": {
+          "type": "repr(QByteArray.hex)",
+          "repr(QByteArray.hex)": "QtCore.QByteArray('01d9d0cb0002000000000093000002f00000074f0000051e000000930000030c0000074f0000051e00000000000000000a00')",
+          "pretty-print": "         O       O       "
+        },
+        "state": {
+          "type": "repr(QByteArray.hex)",
+          "repr(QByteArray.hex)": "QtCore.QByteArray('000000ff00000000fd0000000100000003000006bd000001fdfc0100000003fb0000006a0074006f0072006f0062006f005f006700750069005f005f0054006f0072006f0062006f00530074006100740065005600690065007700650072005f005f0031005f005f0054006f0072006f0062006f005300740061007400650056006900650077006500720055006901000000000000023c0000016800fffffffb0000006a0074006f0072006f0062006f005f006700750069005f005f0054006f0072006f0062006f00530074006100740065005600690065007700650072005f005f0032005f005f0054006f0072006f0062006f00530074006100740065005600690065007700650072005500690100000242000002390000016800fffffffb0000006a0074006f0072006f0062006f005f006700750069005f005f0054006f0072006f0062006f00530074006100740065005600690065007700650072005f005f0033005f005f0054006f0072006f0062006f005300740061007400650056006900650077006500720055006901000004810000023c0000016800ffffff000006bd0000000000000004000000040000000800000008fc00000001000000030000000100000036004d0069006e0069006d0069007a006500640044006f0063006b00570069006400670065007400730054006f006f006c0062006100720000000000ffffffff0000000000000000')",
+          "pretty-print": "                 jtorobo_gui__ToroboStateViewer__1__ToroboStateViewerUi          jtorobo_gui__ToroboStateViewer__2__ToroboStateViewerUi          jtorobo_gui__ToroboStateViewer__3__ToroboStateViewerUi                            6MinimizedDockWidgetsToolbar        "
+        }
+      },
+      "groups": {
+        "toolbar_areas": {
+          "keys": {
+            "MinimizedDockWidgetsToolbar": {
+              "type": "repr",
+              "repr": "8"
+            }
+          },
+          "groups": {}
+        }
+      }
+    }
+  }
+}

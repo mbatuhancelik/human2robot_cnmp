@@ -1,0 +1,12 @@
+<launch>
+
+  <group ns="torobo">
+
+    <node name="camera_link_tf_publisher_node" pkg="torobo_camera"
+        type="camera_link_tf_publisher.py" respawn="false" output="screen"
+        args="--camera_link_tf_data=$(find torobo_camera)/config/camera_link_tf.yaml" />
+
+  </group>
+
+</launch>
+

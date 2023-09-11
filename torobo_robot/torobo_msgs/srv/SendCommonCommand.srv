@@ -1,0 +1,9 @@
+string[] joint_names
+uint32 whole_order
+uint32 joint_order
+float32 value1
+float32 value2
+float32 value3
+float32 value4
+---
+bool success

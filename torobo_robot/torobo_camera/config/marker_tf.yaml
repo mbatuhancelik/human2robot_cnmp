@@ -1,0 +1,15 @@
+!!python/object/new:geometry_msgs.msg._TransformStamped.TransformStamped
+state:
+- !!python/object/new:std_msgs.msg._Header.Header
+  state:
+  - 0
+  - !!python/object/new:rospy.rostime.Time
+    state: [1552290230, 285166978]
+  - torso/link_2
+- torso/marker
+- !!python/object/new:geometry_msgs.msg._Transform.Transform
+  state:
+  - !!python/object/new:geometry_msgs.msg._Vector3.Vector3
+    state: [0.46, -0.395, 0.0]
+  - !!python/object/new:geometry_msgs.msg._Quaternion.Quaternion
+    state: [0.707106783589, 0.0, -0.707106778784, 0.0]

@@ -1,0 +1,4 @@
+<launch>
+    <!-- test node -->
+    <test pkg="torobo_driver" test-name="test_torobo_driver_node" type="test_torobo_driver"/>
+</launch>

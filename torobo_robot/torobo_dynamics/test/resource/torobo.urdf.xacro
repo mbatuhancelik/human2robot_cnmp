@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<robot name="torobo" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- =============== Constants =============== -->
+  <xacro:property name="M_PI" value="3.1415926535897931"/>
+
+  <!-- =============== Load Dependencies =============== -->
+  <xacro:include filename="$(find torobo_dynamics)/test/resource/TRBK-L-K-001-6/urdf/left_arm.urdf.xacro"/>
+  <xacro:include filename="$(find torobo_dynamics)/test/resource/TRBK-R-K-001-6/urdf/right_arm.urdf.xacro"/>
+  <xacro:include filename="$(find torobo_dynamics)/test/resource/TRBK-T-K-001-4/urdf/torso_head.urdf.xacro"/>
+
+  <!-- =============== Link & Joint =============== -->
+  <!-- <link name="base_link"/> -->
+  <link name="world"/>
+
+  <joint name="joint_base" type="fixed">
+    <origin xyz="0 0 0.3"/>
+    <parent link="world"/>
+    <child link="base"/>
+  </joint>
+
+  <link name="base">
+    <visual>
+      <geometry>
+        <cylinder length="0.6" radius="0.1"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.6" radius="0.1" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0.3"/>
+      <mass value="1"/>
+      <inertia
+        ixx="1" ixy="0" ixz="0"
+        iyy="1" iyz="0" izz="1"/>
+    </inertial>
+  </link>
+
+</robot>

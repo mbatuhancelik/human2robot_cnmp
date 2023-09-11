@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="rqt_gui" name="torobo_whole_body_manager" type="rqt_gui" ns="torobo" output="screen"
+    args="--perspective-file $(find torobo_gui)/perspective/torobo_whole_body_manager.perspective" />
+</launch>

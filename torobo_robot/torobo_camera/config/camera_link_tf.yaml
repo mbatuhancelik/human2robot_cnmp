@@ -1,0 +1,15 @@
+!!python/object/new:geometry_msgs.msg._TransformStamped.TransformStamped
+state:
+- !!python/object/new:std_msgs.msg._Header.Header
+  state:
+  - 0
+  - !!python/object/new:rospy.rostime.Time
+    state: [1584614468, 932735920]
+  - head/link_tip
+- head/camera_link
+- !!python/object/new:geometry_msgs.msg._Transform.Transform
+  state:
+  - !!python/object/new:geometry_msgs.msg._Vector3.Vector3
+    state: [0.09994693764034435, -0.10375546297383242, -0.02996137788813691]
+  - !!python/object/new:geometry_msgs.msg._Quaternion.Quaternion
+    state: [-0.7071036545996325, -0.006561215141928508, -0.016587340585442124, -0.7068848268285183]

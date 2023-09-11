@@ -1,0 +1,122 @@
+# Publish all joint states -----------------------------------
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 500
+
+# Position Controllers ---------------------------------------
+left_arm_controller:
+  type: "position_controllers/JointTrajectoryController"
+  action_ns: follow_joint_trajectory  # for moveit
+  action_type: FollowJointTrajectory  # for moveit (==>type)
+  action_default: true                # for moveit (==>default)
+  joints:
+    - left_arm/joint_1
+    - left_arm/joint_2
+    - left_arm/joint_3
+    - left_arm/joint_4
+    - left_arm/joint_5
+    - left_arm/joint_6
+    - left_arm/joint_7
+  allow_partial_joints_goal: true
+  constraints:
+    goal_time: 0.5
+    stopped_velocity_tolerance: 0.05
+    left_arm/joint_1: {trajectory: 0.01745, goal: 0.01745}
+    left_arm/joint_2: {trajectory: 0.01745, goal: 0.01745}
+    left_arm/joint_3: {trajectory: 0.01745, goal: 0.01745}
+    left_arm/joint_4: {trajectory: 0.01745, goal: 0.01745}
+    left_arm/joint_5: {trajectory: 0.01745, goal: 0.01745}
+    left_arm/joint_6: {trajectory: 0.01745, goal: 0.01745}
+    left_arm/joint_7: {trajectory: 0.01745, goal: 0.01745}
+  stop_trajectory_duration: 0.5
+  state_publish_rate: 20
+  action_monitor_rate: 20
+
+right_arm_controller:
+  type: "position_controllers/JointTrajectoryController"
+  action_ns: follow_joint_trajectory  # for moveit
+  action_type: FollowJointTrajectory  # for moveit (==>type)
+  action_default: true                # for moveit (==>default)
+  joints:
+    - right_arm/joint_1
+    - right_arm/joint_2
+    - right_arm/joint_3
+    - right_arm/joint_4
+    - right_arm/joint_5
+    - right_arm/joint_6
+    - right_arm/joint_7
+  allow_partial_joints_goal: true
+  constraints:
+    goal_time: 0.5
+    stopped_velocity_tolerance: 0.05
+    right_arm/joint_1: {trajectory: 0.01745, goal: 0.01745}
+    right_arm/joint_2: {trajectory: 0.01745, goal: 0.01745}
+    right_arm/joint_3: {trajectory: 0.01745, goal: 0.01745}
+    right_arm/joint_4: {trajectory: 0.01745, goal: 0.01745}
+    right_arm/joint_5: {trajectory: 0.01745, goal: 0.01745}
+    right_arm/joint_6: {trajectory: 0.01745, goal: 0.01745}
+    right_arm/joint_7: {trajectory: 0.01745, goal: 0.01745}
+  stop_trajectory_duration: 0.5
+  state_publish_rate: 20
+  action_monitor_rate: 20
+
+torso_controller:
+  type: "position_controllers/JointTrajectoryController"
+  action_ns: follow_joint_trajectory  # for moveit
+  action_type: FollowJointTrajectory  # for moveit (==>type)
+  action_default: true                # for moveit (==>default)
+  joints:
+    - torso/joint_1
+    - torso/joint_2
+  allow_partial_joints_goal: true
+  constraints:
+    goal_time: 0.5
+    stopped_velocity_tolerance: 0.05
+    torso/joint_1: {trajectory: 0.01745, goal: 0.01745}
+    torso/joint_2: {trajectory: 0.01745, goal: 0.01745}
+  stop_trajectory_duration: 0.5
+  state_publish_rate: 20
+  action_monitor_rate: 20
+
+head_controller:
+  type: "position_controllers/JointTrajectoryController"
+  action_ns: follow_joint_trajectory  # for moveit
+  action_type: FollowJointTrajectory  # for moveit (==>type)
+  action_default: true                # for moveit (==>default)
+  joints:
+    - head/joint_1
+    - head/joint_2
+  allow_partial_joints_goal: true
+  constraints:
+    goal_time: 0.5
+    stopped_velocity_tolerance: 0.05
+    head/joint_1: {trajectory: 0.01745, goal: 0.01745}
+    head/joint_2: {trajectory: 0.01745, goal: 0.01745}
+  stop_trajectory_duration: 0.5
+  state_publish_rate: 20
+  action_monitor_rate: 20
+
+right_gripper_controller:
+  type: "position_controllers/ToroboGripperActionController"
+  action_ns: gripper_cmd              # for moveit
+  action_type: GripperCommand         # for moveit (==>type)
+  action_default: true                # for moveit (==>default)
+  joint: right_gripper/finger_joint
+  goal_tolerance: 0.01
+  stalled_velocity_threshold: 0.01
+  stall_timeout: 0.2
+  gains:
+    right_gripper/finger_joint: {p: 200, d: 1, i: 5, i_clamp: 1}
+
+left_gripper_controller:
+  type: "position_controllers/ToroboGripperActionController"
+  action_ns: gripper_cmd              # for moveit
+  action_type: GripperCommand         # for moveit (==>type)
+  action_default: true                # for moveit (==>default)
+  joint: left_gripper/finger_joint
+  goal_tolerance: 0.01
+  stalled_velocity_threshold: 0.01
+  stall_timeout: 0.2
+  gains:
+    left_gripper/finger_joint: {p: 200, d: 1, i: 5, i_clamp: 1}
+

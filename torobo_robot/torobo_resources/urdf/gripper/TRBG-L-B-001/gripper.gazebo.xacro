@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">  
+
+  <xacro:macro name="gripper_gazebo_v0" params="prefix use_graspfix">
+
+    <!-- ros_control plugin -->
+    <gazebo>
+
+      <xacro:if value="${use_graspfix}">
+        <plugin name="gazebo_grasp_fix" filename="libgazebo_grasp_fix.so">
+          <arm>
+            <arm_name>${prefix}toroboarm_gripper</arm_name>
+            <palm_link>${prefix}mimic_link</palm_link>
+            <gripper_link>${prefix}finger_link</gripper_link>
+            <gripper_link>${prefix}mimic_link</gripper_link>
+          </arm>
+          <forces_angle_tolerance>100</forces_angle_tolerance>
+          <update_rate>10</update_rate>
+          <grip_count_threshold>4</grip_count_threshold>
+          <max_grip_count>8</max_grip_count>
+          <release_tolerance>0.005</release_tolerance>
+          <disable_collisions_on_attach>false</disable_collisions_on_attach>
+          <contact_topic>__default_topic__</contact_topic>
+        </plugin>
+      </xacro:if>
+
+    </gazebo>
+
+    <!-- grasping_frame -->
+    <gazebo reference="${prefix}grasping_frame">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+    </gazebo>
+
+    <!-- gripper_base -->
+    <gazebo reference="${prefix}gripper_base">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+    </gazebo>
+
+    <!-- right_finger -->
+    <gazebo reference="${prefix}finger_joint">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+    </gazebo>
+
+    <!-- left_finger -->
+    <gazebo reference="${prefix}mimic_joint">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+    </gazebo>
+
+  </xacro:macro>
+
+</robot>

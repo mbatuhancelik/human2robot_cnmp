@@ -1,0 +1,8 @@
+<launch>
+    <!-- arguments -->
+    <arg name="robot_description" default="$(find torobo_dynamics)/test/resource/torobo.urdf.xacro"/>
+    <!-- parameters -->
+    <param name="robot_description" command="$(find xacro)/xacro --inorder '$(arg robot_description)'"/>
+    <!-- test node -->
+    <test pkg="torobo_dynamics" test-name="test_torobo_rbdl_model_node" type="test_torobo_rbdl_model"/>
+</launch>

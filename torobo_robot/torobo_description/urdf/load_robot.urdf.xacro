@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<robot name="torobo" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:arg name="path" default="$(find torobo_description)/config/products/default.yaml"/>
+  <xacro:property name="robot_config" value="${load_yaml('$(arg path)')}"/>
+  <xacro:property name="model" value="${robot_config['model']}"/>
+
+  <!-- =============== Load Dependencies =============== -->
+  <xacro:include filename="$(find torobo_resources)/urdf/materials.xacro" />
+  <xacro:include filename="$(find torobo_description)/urdf/common.gazebo.xacro"/>
+  <xacro:include filename="$(find torobo_description)/urdf/common.transmission.xacro"/>
+
+  <!-- =============== Configure robot ================= -->
+  <!-- humanoid -->
+  <xacro:if value="${model == 'humanoid16'
+                  or model == 'humanoid16_gripper'
+                  or model == 'humanoid18'
+                  or model == 'humanoid18_gripper'
+                  or model == 'humanoid_torso'
+  }">
+    <xacro:include filename="$(find torobo_description)/robots/humanoid.urdf.xacro"/>
+    <xacro:torobo_humanoid_v0 robot_config="${robot_config}"/>
+  </xacro:if>
+
+</robot>

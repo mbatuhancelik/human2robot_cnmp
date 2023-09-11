@@ -1,0 +1,5 @@
+controller_list:
+  - joint_state_controller
+  - left_arm_controller
+  - right_arm_controller
+  - torso_head_controller

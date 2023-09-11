@@ -1,0 +1,47 @@
+<launch>
+
+  <arg name="product"/>
+
+  <!-- By default we do not overwrite the URDF. Change the following to true to change the default behavior -->
+  <arg name="load_robot_description" default="false"/>
+
+  <!-- The name of the parameter under which the URDF is loaded -->
+  <arg name="robot_description" default="robot_description"/>
+
+  <!-- Load universal robot description format (URDF) -->
+  <include file="$(find torobo_description)/launch/load_robot_config.launch">
+    <arg name="product" value="$(arg product)"/>
+  </include>
+  
+  <!-- Load updated joint limits (override information from URDF) -->
+  <group ns="$(arg robot_description)_planning">
+
+    <param name="/dummy" command="
+        $(find torobo_moveit_config)/scripts/load_joint_limits.py
+        --model_dir=$(find torobo_description)/config/models
+        --yaml=controllers.yaml
+        --robot_config=$(find torobo_description)/config/products/$(arg product).yaml
+        --xacro=$(find xacro)/xacro
+        --urdf=$(find torobo_description)/urdf/load_robot.urdf.xacro
+        --path=$(find torobo_description)/config/products/$(arg product).yaml
+        --dump_file=/tmp/torobo_rosparam_robot_description_planning.yaml
+    " />
+    <rosparam command="load" file="/tmp/torobo_rosparam_robot_description_planning.yaml" />
+
+  </group>
+
+  <!-- Load default settings for kinematics; these settings are overridden by settings in a node's namespace -->
+  <group ns="$(arg robot_description)_kinematics">
+    <param name="/dummy" command="
+        $(find torobo_moveit_config)/scripts/load_kinematics.py 
+        --model_dir=$(find torobo_description)/config/models
+        --srdf=torobo.srdf
+        --robot_config=$(find torobo_description)/config/products/$(arg product).yaml
+        --kinematics_yaml=$(find torobo_moveit_config)/config/kinematics.yaml
+        --dump_file=/tmp/torobo_rosparam_robot_description_kinematics.yaml
+    " />
+    <rosparam command="load" file="/tmp/torobo_rosparam_robot_description_kinematics.yaml" />
+  </group>
+
+  
+</launch>

@@ -1,0 +1,46 @@
+# Publish all joint states -----------------------------------
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 500
+
+# Position Controllers ---------------------------------------
+left_arm_controller:
+  type: "position_controllers/JointTrajectoryController"
+  action_ns: follow_joint_trajectory  # for moveit
+  action_type: FollowJointTrajectory  # for moveit (==>type)
+  action_default: true                # for moveit (==>default)
+  joints:
+    - left_arm/joint_1
+    - left_arm/joint_2
+    - left_arm/joint_3
+    - left_arm/joint_4
+    - left_arm/joint_5
+    - left_arm/joint_6
+  allow_partial_joints_goal: true
+
+right_arm_controller:
+  type: "position_controllers/JointTrajectoryController"
+  action_ns: follow_joint_trajectory  # for moveit
+  action_type: FollowJointTrajectory  # for moveit (==>type)
+  action_default: true                # for moveit (==>default)
+  joints:
+    - right_arm/joint_1
+    - right_arm/joint_2
+    - right_arm/joint_3
+    - right_arm/joint_4
+    - right_arm/joint_5
+    - right_arm/joint_6
+  allow_partial_joints_goal: true
+
+torso_head_controller:
+  type: "position_controllers/JointTrajectoryController"
+  action_ns: follow_joint_trajectory  # for moveit
+  action_type: FollowJointTrajectory  # for moveit (==>type)
+  action_default: true                # for moveit (==>default)
+  joints:
+    - torso_head/joint_1
+    - torso_head/joint_2
+    - torso_head/joint_3
+    - torso_head/joint_4
+  allow_partial_joints_goal: true
+

@@ -1,0 +1,23 @@
+<launch>
+
+    <!-- load robot config -->
+    <include file="$(find torobo_moveit_config)/launch/demo.launch" ns="torobo">
+      <arg name="product" value="Torobo18_Gripper"/>
+      <arg name="use_gui" value="false"/>
+      <arg name="rviz" value="false"/>
+    </include>
+
+    <include file="$(find torobo_collision_detector)/launch/torobo_collision_detector_node.launch">
+      <!-- <arg name="manager" value="torobo_nodelet_manager"/> -->
+      <arg name="debug" value="true"/>
+      <arg name="link_scale" value="1.3"/>
+      <arg name="link_name_regex" value=".*(arm/link_[3-7]|gripper).*"/>
+    </include>
+
+    <!-- test node -->
+    <test pkg="torobo_collision_detector" test-name="test_torobo_collision_detector_humanoid18_gripper" type="test_torobo_collision_detector_humanoid18_gripper" ns="torobo">
+      <param name="controller_name" value="right_arm_controller"/>
+      <param name="service_name_for_check_collision" value="check_collision"/>
+    </test>
+
+</launch>

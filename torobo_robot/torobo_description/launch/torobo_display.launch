@@ -1,0 +1,24 @@
+<launch>
+  <!-- arguments -->
+  <arg name="product" default="$(optenv PRODUCT default)" />
+  <arg name="gui" default="true" />
+
+  <include file="$(find torobo_description)/launch/load_robot_config.launch">
+    <arg name="product" value="$(arg product)"/>
+  </include>
+
+  <!-- prameters -->
+  <param name="use_gui" value="$(arg gui)"/>
+
+  <!-- nodes -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <!--<remap from="/joint_states" to="/torobo/joint_states" />-->
+  </node>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher">
+    <!--<remap from="/joint_states" to="/torobo/joint_states" />-->
+  </node>
+
+  <!-- rviz -->
+  <node name="rviz" pkg="rviz" type="rviz" required="true" args="-d $(find torobo_description)/launch/torobo_display.rviz"/>
+ 
+</launch>

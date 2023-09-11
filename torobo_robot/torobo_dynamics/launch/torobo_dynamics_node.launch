@@ -1,0 +1,16 @@
+<launch>
+
+    <arg name="debug" default="false"/>
+    <arg name="sim" default="true"/>
+    <arg name="rate" default="200"/>
+
+    <group ns="torobo">
+        <node pkg="torobo_dynamics" type="torobo_dynamics_node" name="torobo_dynamics_node"
+              output="screen">
+              <param name="debug"  value="$(arg debug)"/>
+              <param name="sim"  value="$(arg sim)"/>
+              <param name="rate" value="$(arg rate)"/>
+        </node>
+    </group>
+
+</launch>

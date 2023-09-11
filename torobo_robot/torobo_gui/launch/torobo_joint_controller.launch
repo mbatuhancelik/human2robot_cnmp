@@ -1,0 +1,8 @@
+<launch>
+
+    <arg name="model" default="torobo"/>
+
+    <node pkg="rqt_gui" name="torobo_joint_controller" type="rqt_gui" ns="torobo" output="screen"
+        args="--perspective-file $(find torobo_gui)/perspective/torobo_joint_controller.perspective" />
+
+</launch>

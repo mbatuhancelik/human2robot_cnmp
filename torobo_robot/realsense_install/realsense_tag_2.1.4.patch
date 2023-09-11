@@ -1,0 +1,37 @@
+diff --git realsense2_camera/CMakeLists.txt realsense2_camera/CMakeLists.txt
+index fd616fb..0371358 100644
+--- realsense2_camera/CMakeLists.txt
++++ realsense2_camera/CMakeLists.txt
+@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
+ project(realsense2_camera)
+ add_compile_options(-std=c++11)
+ 
+-option(BUILD_WITH_OPENMP "Use OpenMP" OFF)
++option(BUILD_WITH_OPENMP "Use OpenMP" ON)
+ option(SET_USER_BREAK_AT_STARTUP "Set user wait point in startup (for debug)" OFF)
+ 
+ find_package(catkin REQUIRED COMPONENTS
+diff --git realsense2_camera/src/base_realsense_node.cpp realsense2_camera/src/base_realsense_node.cpp
+index 6b2926c..1d43db4 100644
+--- realsense2_camera/src/base_realsense_node.cpp
++++ realsense2_camera/src/base_realsense_node.cpp
+@@ -652,6 +652,19 @@ void BaseRealSenseNode::publishAlignedDepthToOthers(rs2::frameset frames, const
+             rs2::frameset processed = frames.apply_filter(align);
+             rs2::depth_frame aligned_depth_frame = processed.get_depth_frame();
+ 
++            static const auto meter_to_mm = 0.001f;
++            int width = aligned_depth_frame.get_width();
++            int height = aligned_depth_frame.get_height();
++            uint16_t* p_depth_frame = reinterpret_cast<uint16_t*>(const_cast<void*>(aligned_depth_frame.get_data()));
++            for (int y=0; y<height; ++y)
++            {
++                for (int x=0; x<width; ++x)
++                {
++                    p_depth_frame[y*width+x] *= _depth_scale_meters / meter_to_mm;
++                }
++
++            }
++
+             publishFrame(aligned_depth_frame, t, sip,
+                          _depth_aligned_image,
+                          _depth_aligned_info_publisher,

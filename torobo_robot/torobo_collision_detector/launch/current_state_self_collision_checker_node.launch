@@ -1,0 +1,17 @@
+<launch>
+    <arg name="sim" default="true"/>
+    <arg name="rate" default="100"/>
+    <arg name="service_name_for_check_collision" default="check_collision"/>
+
+    <group ns="torobo">
+  
+        <node pkg="torobo_collision_detector" name="current_state_self_collision_checker_node"
+              type="current_state_self_collision_checker_node" output="screen" required="true">
+              <param name="sim" value="$(arg sim)"/>
+              <param name="rate" value="$(arg rate)"/>
+              <param name="service_name_for_check_collision" value="$(arg service_name_for_check_collision)"/>
+        </node>
+
+    </group>
+
+</launch>

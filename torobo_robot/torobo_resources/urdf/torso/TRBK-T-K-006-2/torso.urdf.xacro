@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- =============== Constants =============== -->
+  <xacro:property name="torso_type" value="TRBK-T-K-006-2"/>
+  <xacro:property name="vis_mesh_scale"  value="1.0 1.0 1.0"/>
+  <xacro:property name="col_mesh_scale"  value="1.0 1.0 1.0"/>
+
+  <!-- =============== Load Dependencies =============== -->
+  <xacro:include filename="$(find torobo_resources)/urdf/common.xacro" />
+  <xacro:include filename="$(find torobo_resources)/urdf/torso/${torso_type}/torso.gazebo.xacro" />
+
+  <!-- =============== Link & Joint =============== -->
+  <xacro:macro name="torso_v0" params="prefix parent *joint_origin">
+
+    <joint name="${prefix}torso/root" type="fixed">
+      <xacro:insert_block name="joint_origin"/>
+      <parent link="${parent}"/>
+      <child link="${prefix}torso/link_0"/>
+    </joint>
+
+    <link name="${prefix}torso/link_0">
+      <visual>
+        <geometry>
+          <mesh filename="package://torobo_resources/meshes/torso/${torso_type}/DAE/link0.dae" scale="${vis_mesh_scale}"/>
+        </geometry>
+        <material name="white"/>
+        <origin xyz="0 0 0"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://torobo_resources/meshes/torso/${torso_type}/STL/link0.stl" scale="${col_mesh_scale}"/>
+        </geometry>
+        <origin xyz="0 0 0"/>
+      </collision>
+      <inertial>
+        <origin xyz="0.000 0.000 0.072"/>
+        <mass value="4.026904"/>
+        <inertia
+          ixx="2.231800e-2" ixy="-9.370000e-8" ixz="6.498320e-5"
+          iyy="2.220438e-2" iyz="6.190000e-8" izz="2.262530e-2"/>
+      </inertial>
+    </link>
+  
+    <joint name="${prefix}torso/joint_1" type="revolute">
+      <parent link="${prefix}torso/link_0"/>
+      <child link="${prefix}torso/link_1"/>
+      <origin xyz="0.0 0 0.290" rpy="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="${-170*M_PI/180}" upper="${170*M_PI/180}" effort="110" velocity="${140*M_PI/180}"/>
+    </joint>
+  
+    <link name="${prefix}torso/link_1">
+      <visual>
+        <geometry>
+          <mesh filename="package://torobo_resources/meshes/torso/${torso_type}/DAE/link1.dae" scale="${vis_mesh_scale}"/>
+        </geometry>
+        <material name="white"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://torobo_resources/meshes/torso/${torso_type}/STL/link1.stl" scale="${col_mesh_scale}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0.000 -0.003 -0.059"/>
+        <mass value="6.067716"/>
+        <inertia
+          ixx="3.427518e-2" ixy="3.265400e-6" ixz="-8.846100e-6"
+          iyy="3.636420e-2" iyz="1.426545e-3" izz="1.349086e-2"/>
+      </inertial>
+    </link>
+  
+    <joint name="${prefix}torso/joint_2" type="revolute">
+      <parent link="${prefix}torso/link_1"/>
+      <child link="${prefix}torso/link_2"/>
+      <origin xyz="0 0 0" rpy="${-90*M_PI/180} 0 0"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="${-60*M_PI/180}" upper="${80*M_PI/180}" effort="150" velocity="${60*M_PI/180}"/>
+    </joint>
+  
+    <link name="${prefix}torso/link_2">
+      <visual>
+        <geometry>
+          <mesh filename="package://torobo_resources/meshes/torso/${torso_type}/DAE/link2.dae" scale="${vis_mesh_scale}"/>
+        </geometry>
+        <material name="white"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://torobo_resources/meshes/torso/${torso_type}/STL/link2.stl" scale="${col_mesh_scale}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="-0.004 -0.130 0.003"/>
+        <mass value="5.205348"/>
+        <inertia
+          ixx="6.642486e-2" ixy="-1.700289e-3" ixz="-6.315480e-5"
+          iyy="1.765227e-2" iyz="-2.463749e-3" izz="6.490475e-2"/>
+      </inertial>
+    </link>
+
+    <joint name="${prefix}torso/left_shoulder_joint" type="fixed">
+      <parent link="${prefix}torso/link_2"/>
+      <child link="${prefix}torso/left_shoulder_link"/>
+      <origin xyz="0 -0.285 0.0175" rpy="0 0 0"/>
+    </joint>
+    <link name="${prefix}torso/left_shoulder_link"/>
+
+    <joint name="${prefix}torso/right_shoulder_joint" type="fixed">
+      <parent link="${prefix}torso/link_2"/>
+      <child link="${prefix}torso/right_shoulder_link"/>
+      <origin xyz="0 -0.285 -0.0175" rpy="${180*M_PI/180} 0 0" />
+    </joint>
+    <link name="${prefix}torso/right_shoulder_link"/>
+
+    <joint name="${prefix}torso/joint_tip" type="fixed">
+      <parent link="${prefix}torso/link_2"/>
+      <child link="${prefix}torso/link_tip"/>
+      <origin xyz="0 -0.3945 0" rpy="${90*M_PI/180} 0 0"/>
+    </joint>
+    <link name="${prefix}torso/link_tip"/>
+  
+    <!-- Gazebo -->
+    <xacro:torso_gazebo_v0 prefix="${prefix}"/>
+  
+    <!-- =============== Transmission =============== -->
+    <simple_transmission name="${prefix}torso/joint_1" reduction="1"/>
+    <simple_transmission name="${prefix}torso/joint_2" reduction="1"/>
+
+  </xacro:macro>
+  
+</robot>

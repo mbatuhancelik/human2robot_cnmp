@@ -1,0 +1,12 @@
+# Goal
+string teachingTrajectoryName
+---
+# Result
+int32 errorCode
+int32 SUCCESSFUL = 0
+int32 FAILURE = -1
+int32 PREEMPTED = -2
+sensor_msgs/JointState jointState
+---
+# Feedback
+trajectory_msgs/JointTrajectoryPoint actual

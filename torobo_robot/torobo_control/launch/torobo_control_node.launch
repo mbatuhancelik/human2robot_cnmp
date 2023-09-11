@@ -1,0 +1,31 @@
+<launch>
+
+  <arg name="sim" default="true"/>
+  <arg name="manager" default="nodelet_manager"/>
+  <arg name="nodelet" default="false"/>
+  <arg name="server_rate" default="20.0"/>
+
+  <!-- simulation (gazebo) -->
+  <group if="$(arg sim)" ns="torobo">
+    <!-- load the controllers -->
+    <node name="controller_spawner" pkg="torobo_control" type="spawner.py" respawn="false"
+          required="true" output="screen"/>
+    <!-- load torobo_control_node -->
+    <node pkg="torobo_control" name="torobo_control_node" type="torobo_control_node" respawn="false"
+          required="true" output="screen">
+          <param name="spawn" value="false"/>
+          <param name="server_rate" value="$(arg server_rate)"/>
+    </node>
+  </group>
+
+  <!-- real (driver) -->
+  <group unless="$(arg sim)" ns="torobo">
+    <!-- load torobo_control_node -->
+    <node pkg="torobo_control" name="torobo_control_node" type="torobo_control_node" respawn="false"
+          required="true" output="screen">
+          <param name="spawn" value="true"/>
+          <param name="server_rate" value="$(arg server_rate)"/>
+    </node>
+  </group>
+
+</launch>

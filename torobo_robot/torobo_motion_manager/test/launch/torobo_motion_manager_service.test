@@ -1,0 +1,4 @@
+<launch>
+    <!-- test node -->
+    <test pkg="torobo_motion_manager" test-name="test_torobo_motion_manager_service" type="test_torobo_motion_manager_service"/>
+</launch>

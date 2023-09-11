@@ -1,0 +1,2 @@
+sensor_msgs/JointState jointState
+uint32 max_contacts

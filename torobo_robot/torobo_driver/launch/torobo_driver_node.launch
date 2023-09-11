@@ -1,0 +1,34 @@
+<launch>
+
+    <arg name="product" default="$(optenv PRODUCT default)" />
+    <arg name="debug" default="false"/>
+    <arg name="mock" default="false"/>
+    <arg name="rate" default="100"/>
+    <arg name="allowed_start_tolerance" default="0.01"/>
+    <arg name="config_dir" default="$(find torobo_driver)/config"/>
+    <arg name="config_file_name" default="torobo_controller_config.yaml"/>
+    <arg name="robot_description_name" default="robot_description/"/>
+
+    <group ns="torobo">
+
+        <!-- load torobo controller_config -->
+        <param name="/dummy_torobo_controller_config" command="
+            $(find torobo_driver)/scripts/load_torobo_controller_config.py 
+            --config_dir=$(arg config_dir)
+            --yaml=$(arg config_file_name)
+            --robot_config=$(find torobo_description)/config/products/$(arg product).yaml
+            --dump_file=/tmp/torobo_rosparam_torobo_controller_config.yaml
+            " />
+        <rosparam command="load" file="/tmp/torobo_rosparam_torobo_controller_config.yaml" />
+
+        <node pkg="torobo_driver" type="torobo_driver_node" name="torobo_driver_node"
+              output="screen">
+              <param name="debug"  value="$(arg debug)"/>
+              <param name="mock"  value="$(arg mock)"/>
+              <param name="rate" value="$(arg rate)"/>
+              <param name="allowed_start_tolerance" value="$(arg allowed_start_tolerance)"/>
+              <param name="robot_description_name" value="$(arg robot_description_name)"/>
+        </node>
+    </group>
+
+</launch>

@@ -1,0 +1,8 @@
+model: humanoid18
+base: TRBB-K-A-001
+torso: TRBK-T-K-006-2
+head: TRBK-H-K-006-2
+left_arm: TRBK-L-K-006-7
+right_arm: TRBK-R-K-006-7
+left_gripper: ""
+right_gripper: ""

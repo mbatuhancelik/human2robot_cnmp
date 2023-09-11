@@ -1,0 +1,9 @@
+<launch>
+    <!-- parameters -->
+    <param name="robot_description_semantic" command="
+        $(find torobo_motion_manager)/test/scripts/load_srdf.py
+        --srdf=$(find torobo_motion_manager)/test/resource/arm/torobo.srdf"/>
+
+    <!-- test node -->
+    <test pkg="torobo_motion_manager" test-name="test_arm_motion_manager_action" type="test_arm_motion_manager_action"/>
+</launch>

@@ -1,0 +1,7 @@
+string name
+float64 mass
+float64[] com            # x, y, z
+float64[] inertiaElem    # ixx, ixy, ixz, iyy, iyz, izz
+---
+bool success
+

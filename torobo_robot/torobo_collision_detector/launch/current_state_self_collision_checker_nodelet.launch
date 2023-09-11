@@ -1,0 +1,26 @@
+<launch>
+
+    <arg name="sim" default="true"/>
+    <arg name="rate" default="100"/>
+    <arg name="manager" default="nodelet_manager"/>
+    <arg name="nodelet" default="false"/>
+    <arg name="service_name_for_check_collision" default="check_collision"/>
+
+    <group ns="torobo">
+  
+        <group if="$(arg nodelet)">
+            <node pkg="nodelet" type="nodelet" args="manager" name="$(arg manager)"
+                output="screen"/>
+        </group>
+  
+        <node pkg="nodelet" type="nodelet" name="current_state_self_collision_checker_nodelet"
+              args="load torobo_collision_detector/current_state_self_collision_checker_nodelet $(arg manager)"
+              output="screen" required="true">
+              <param name="sim" value="$(arg sim)"/>
+              <param name="rate" value="$(arg rate)"/>
+              <param name="service_name_for_check_collision" value="$(arg service_name_for_check_collision)"/>
+        </node>
+  
+    </group>
+
+</launch>

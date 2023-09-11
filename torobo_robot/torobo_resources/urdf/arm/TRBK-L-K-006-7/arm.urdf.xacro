@@ -1,0 +1,269 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- =============== Constants =============== -->
+  <xacro:property name="arm_type"       value="TRBK-L-K-006-7"/>
+  <xacro:property name="vis_mesh_scale" value="1.0 1.0 1.0"/>
+  <xacro:property name="col_mesh_scale" value="1.0 1.0 1.0"/>
+
+  <!-- =============== Load Dependencies =============== -->
+  <xacro:include filename="$(find torobo_resources)/urdf/common.xacro" />
+  <xacro:include filename="$(find torobo_resources)/urdf/arm/arm_common.gazebo.xacro" />
+
+  <!-- =============== Link & Joint =============== -->
+  <xacro:macro name="arm_v0" params="prefix parent *joint_origin">
+
+    <joint name="${prefix}arm/root" type="fixed">
+      <xacro:insert_block name="joint_origin"/>
+      <parent link="${parent}"/>
+      <child link="${prefix}arm/link_0"/>
+    </joint>
+
+    <link name="${prefix}arm/link_0">
+      <visual>
+        <geometry>
+          <mesh filename="package://torobo_resources/meshes/arm/${arm_type}/DAE/link0.dae" scale="${vis_mesh_scale}"/>
+        </geometry>
+        <material name="white"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://torobo_resources/meshes/arm/${arm_type}/STL/link0.stl" scale="${col_mesh_scale}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0.000 0.000 0.038"/>
+        <mass value="1.120865"/>
+        <inertia
+          ixx="1.805345e-3" ixy="9.310000e-8" ixz="1.446720e-5"
+          iyy="1.782237e-3" iyz="-1.109000e-7" izz="2.287444e-3"/>
+      </inertial>
+    </link>
+
+    <joint name="${prefix}arm/joint_1" type="revolute">
+      <parent link="${prefix}arm/link_0"/>
+      <child link="${prefix}arm/link_1"/>
+      <origin xyz="0.0 0 0.1775" rpy="0 ${180*M_PI/180} ${90*M_PI/180}"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="${-70*M_PI/180}" upper="${250*M_PI/180}" effort="70" velocity="${150*M_PI/180}"/>
+    </joint>
+
+    <link name="${prefix}arm/link_1">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://torobo_resources/meshes/arm/${arm_type}/DAE/link1.dae" scale="${vis_mesh_scale}"/>
+        </geometry>
+        <material name="white"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://torobo_resources/meshes/arm/${arm_type}/STL/link1.stl" scale="${col_mesh_scale}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="-0.009 0.006 0.047"/>
+        <mass value="2.989853"/>
+        <inertia
+          ixx="1.130799e-2" ixy="1.624894e-4" ixz="-1.381978e-3"
+          iyy="1.147156e-2" iyz="7.435181e-4" izz="4.192885e-3"/>
+      </inertial>
+    </link>
+
+    <joint name="${prefix}arm/joint_2" type="revolute">
+      <parent link="${prefix}arm/link_1"/>
+      <child link="${prefix}arm/link_2"/>
+      <origin xyz="-0.02 0 0" rpy="${-90*M_PI/180} ${180*M_PI/180} 0"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="${-35*M_PI/180}" upper="${105*M_PI/180}" effort="70" velocity="${150*M_PI/180}"/>
+    </joint>
+
+    <link name="${prefix}arm/link_2">
+      <visual>
+        <geometry>
+          <mesh filename="package://torobo_resources/meshes/arm/${arm_type}/DAE/link2.dae" scale="${vis_mesh_scale}"/>
+        </geometry>
+        <material name="white"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://torobo_resources/meshes/arm/${arm_type}/STL/link2.stl" scale="${col_mesh_scale}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="-0.001 -0.047 -0.018"/>
+        <mass value="1.780429"/>
+        <inertia
+          ixx="6.399320e-3" ixy="-2.318100e-6" ixz="6.069960e-5"
+          iyy="2.899900e-3" iyz="1.390102e-3" izz="6.394456e-3"/>
+      </inertial>
+    </link>
+
+    <joint name="${prefix}arm/joint_3" type="revolute">
+      <parent link="${prefix}arm/link_2"/>
+      <child link="${prefix}arm/link_3"/>
+      <origin xyz="0 -0.250 0" rpy="${-90*M_PI/180} 0 0"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="${-70*M_PI/180}" upper="${250*M_PI/180}" effort="35" velocity="${180*M_PI/180}"/>
+    </joint>
+
+    <link name="${prefix}arm/link_3">
+      <visual>
+        <geometry>
+          <mesh filename="package://torobo_resources/meshes/arm/${arm_type}/DAE/link3.dae" scale="${vis_mesh_scale}"/> 
+        </geometry>
+        <material name="white"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://torobo_resources/meshes/arm/${arm_type}/STL/link3.stl" scale="${col_mesh_scale}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0.000 -0.004 0.055"/>
+        <mass value="2.384469"/>
+        <inertia
+          ixx="9.955916e-3" ixy="1.297000e-7" ixz="5.591000e-7"
+          iyy="9.909352e-3" iyz="-2.861273e-4" izz="2.304165e-3"/>
+      </inertial>
+    </link>
+
+    <joint name="${prefix}arm/joint_4" type="revolute">
+      <parent link="${prefix}arm/link_3"/>
+      <child link="${prefix}arm/link_4"/>
+      <origin xyz="0 0 0" rpy="${90*M_PI/180} 0 0"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="${-45*M_PI/180}" upper="${120*M_PI/180}" effort="35" velocity="${180* M_PI/180}"/>
+    </joint>
+
+    <link name="${prefix}arm/link_4">
+      <visual>
+        <geometry>
+          <mesh filename="package://torobo_resources/meshes/arm/${arm_type}/DAE/link4.dae" scale="${vis_mesh_scale}"/>
+        </geometry>
+        <material name="white"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://torobo_resources/meshes/arm/${arm_type}/STL/link4.stl" scale="${col_mesh_scale}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0.000 -0.081 -0.010"/>
+        <mass value="1.731690"/>
+        <inertia
+          ixx="7.052932e-3" ixy="4.890000e-7" ixz="6.590000e-8"
+          iyy="1.890919e-3" iyz="1.295489e-3" izz="7.043358e-3"/>
+      </inertial>
+    </link>
+
+    <joint name="${prefix}arm/joint_5" type="revolute">
+      <parent link="${prefix}arm/link_4"/>
+      <child link="${prefix}arm/link_5"/>
+      <origin xyz="0 -0.250 0" rpy="${-90*M_PI/180} ${-90*M_PI/180} 0"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="${-170*M_PI/180}" upper="${170*M_PI/180}" effort="15" velocity="${200*M_PI/180}"/>
+    </joint>
+
+    <link name="${prefix}arm/link_5">
+      <visual>
+        <geometry>
+          <mesh filename="package://torobo_resources/meshes/arm/${arm_type}/DAE/link5.dae" scale="${vis_mesh_scale}"/>
+        </geometry>
+        <material name="white"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://torobo_resources/meshes/arm/${arm_type}/STL/link5.stl" scale="${col_mesh_scale}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0.000 -0.022 0.046"/>
+        <mass value="0.569666"/>
+        <inertia
+          ixx="1.442185e-3" ixy="-1.885700e-6" ixz="-2.154300e-6"
+          iyy="1.241898e-3" iyz="-4.412524e-4" izz="6.598617e-4"/>
+      </inertial>
+   </link>
+
+    <joint name="${prefix}arm/joint_6" type="revolute">
+      <parent link="${prefix}arm/link_5"/>
+      <child link="${prefix}arm/link_6"/>
+      <origin xyz="0 0 0" rpy="${90*M_PI/180} 0 0"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="${-105*M_PI/180}" upper="${90*M_PI/180}" effort="15" velocity="${200*M_PI/180}"/>
+    </joint>
+
+    <link name="${prefix}arm/link_6">
+      <visual>
+        <geometry>
+          <mesh filename="package://torobo_resources/meshes/arm/${arm_type}/DAE/link6.dae" scale="${vis_mesh_scale}"/>
+        </geometry>
+        <material name="white"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://torobo_resources/meshes/arm/${arm_type}/STL/link6.stl" scale="${col_mesh_scale}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0.001 -0.050 0.001"/>
+        <mass value="2.061587"/>
+        <inertia
+          ixx="6.741245e-3" ixy="7.534230e-5" ixz="1.733300e-6"
+          iyy="2.045197e-3" iyz="-7.481240e-5" izz="6.741057e-3"/>
+      </inertial>
+    </link>
+
+    <joint name="${prefix}arm/joint_7" type="revolute">
+      <parent link="${prefix}arm/link_6"/>
+      <child link="${prefix}arm/link_7"/>
+      <origin xyz="0.063 -0.100 0" rpy="${90*M_PI/180} ${-0*M_PI/180} ${-90*M_PI/180}"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="${-170*M_PI/180}" upper="${170*M_PI/180}" effort="15" velocity="${200*M_PI/180}"/>
+    </joint>
+  
+    <link name="${prefix}arm/link_7">
+      <visual>
+        <geometry>
+          <mesh filename="package://torobo_resources/meshes/arm/${arm_type}/DAE/link7.dae" scale="${vis_mesh_scale}"/>
+        </geometry>
+        <material name="white"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://torobo_resources/meshes/arm/${arm_type}/STL/link7.stl" scale="${col_mesh_scale}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0.001 0.000 0.018"/>					
+        <mass value="0.269758"/>					
+        <inertia					
+          ixx="1.501149e-4" ixy="5.190000e-8" ixz="6.478000e-7"					
+          iyy="1.521761e-4" iyz="1.320000e-8" izz="2.083653e-4"/>					
+      </inertial>
+    </link>
+
+    <joint name="${prefix}arm/joint_tip" type="fixed">
+      <parent link="${prefix}arm/link_7"/>
+      <child link ="${prefix}arm/link_tip"/>
+      <origin xyz="0 0 0" rpy="${180*M_PI/180} 0 0"/>
+    </joint>
+    <link name="${prefix}arm/link_tip"/>
+
+    <!-- Gazebo -->
+    <xacro:arm_gazebo_v0 prefix="${prefix}"/>
+
+    <!-- =============== Transmission =============== -->
+    <simple_transmission name="${prefix}arm/joint_1" reduction="1"/>
+    <simple_transmission name="${prefix}arm/joint_2" reduction="1"/>
+    <simple_transmission name="${prefix}arm/joint_3" reduction="1"/>
+    <simple_transmission name="${prefix}arm/joint_4" reduction="1"/>
+    <simple_transmission name="${prefix}arm/joint_5" reduction="1"/>
+    <simple_transmission name="${prefix}arm/joint_6" reduction="1"/>
+    <simple_transmission name="${prefix}arm/joint_7" reduction="1"/>
+
+  </xacro:macro>
+
+</robot>

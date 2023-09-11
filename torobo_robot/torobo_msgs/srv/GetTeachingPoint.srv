@@ -1,0 +1,4 @@
+string teachingPointName 
+---
+bool success
+trajectory_msgs/JointTrajectoryPoint point

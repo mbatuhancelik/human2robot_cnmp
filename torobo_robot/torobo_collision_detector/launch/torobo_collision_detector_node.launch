@@ -1,0 +1,24 @@
+<launch>
+
+    <arg name="debug" default="false"/>
+    <arg name="robot_description_name" default="robot_description"/>
+    <arg name="service_name_for_check_collision" default="check_collision"/>
+    <arg name="service_name_for_get_collision_info" default="get_collision_info"/>
+    <arg name="link_scale" default="1.0"/>  <!-- note: if link_scale is changed from 1.0, it takes calculation time consumption. -->
+    <arg name="link_name_regex" default=".*"/>
+
+    <group ns="torobo">
+  
+        <node pkg="torobo_collision_detector" type="torobo_collision_detector_node" name="torobo_collision_detector_node"
+              output="screen" required="true">
+              <param name="debug"  value="$(arg debug)"/>
+              <param name="robot_description_name" value="$(arg robot_description_name)"/>
+              <param name="service_name_for_check_collision" value="$(arg service_name_for_check_collision)"/>
+              <param name="service_name_for_get_collision_info" value="$(arg service_name_for_get_collision_info)"/>
+              <param name="link_scale" value="$(arg link_scale)"/>
+              <param name="link_name_regex" value="$(arg link_name_regex)"/>  <!-- regex of target link name to be scaled -->
+        </node>
+  
+    </group>
+
+</launch>
