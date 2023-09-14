@@ -2,6 +2,9 @@ import numpy as np
 import utils
 from torobo import Torobo
 
+"""
+environment that implements a torobo robot moving its hand in different angles
+"""
 class Environment:
     def __init__(self, gui = 1):
         self._p = utils.connect(gui)
@@ -28,6 +31,11 @@ class Environment:
                 self.init_pos[1]+ self.ds * np.cos(angle), 
                 self.init_pos[2]+ self.ds * np.sin(angle)
                 ]
+    # currently angles are mapped to actions
+    # 0 30 60 90 120 150 180
+    # phase is used to change moving angle
+    # given action 3 robot will move to
+    # 90 + phase direction
     def step(self, action: int, phase=0):
         target_pos = self.get_target_pos(np.pi/6 * action +phase )
         joints , pos= self.agent.move_in_cartesian(target_pos,t = 2, sleep=True)

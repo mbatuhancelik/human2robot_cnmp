@@ -146,9 +146,17 @@ class CNP(nn.Module):
         r = r.unsqueeze(1).repeat(1, num_target_points, 1)  # repeating the same r_avg for each target
         h_cat = torch.cat([r, target], dim=-1)
         return h_cat
+"""
+multi modal cnp for multi embodiment learning
+"""
 class MMCNP(CNP):
-    def __init__(self, in_shape, hidden_size, num_hidden_layers, min_std=0.1, latent_dim = 32):
+    def __init__(self, hidden_size, num_hidden_layers, min_std=0.1, latent_dim = 32):
         super(CNP, self).__init__()
+        # did not bother using arguments for these
+        #change these if landmark or timestep dimensions change
+        #these are landmark shapes
+        # d_x = timestep dimension
+        # d_y = landmark dimension
         self.d_x = 1
         self.d_y = 2
         self.min_std = min_std
@@ -169,6 +177,11 @@ class MMCNP(CNP):
             self.query_landmark.append(nn.ReLU())
         self.query_landmark.append(nn.Linear(hidden_size, 2 * self.d_y))
         self.query_landmark = nn.Sequential(*self.query_landmark)
+        # did not bother using arguments for these
+        #change these if landmark or timestep dimensions change
+        #these are landmark shapes
+        # d_x = timestep dimension
+        # d_y = joint dimension
         self.d_x = 1
         self.d_y = 5
         self.encoder_joint = []
@@ -192,24 +205,43 @@ class MMCNP(CNP):
 
     def forward(self, observation, target, observation_mask=None):
         obs_joint, obs_landmark = observation
-        target_joint, target_landmark = target
+        # model does not support different timesteps for different emboediments
+        # you can generate 2 h_cat to support this
+
+        # encode landmarks
+        # generating landmarks from joints is not supported
+        # so you must give landmarks for each forward operation
+        target_timesteps, _ = target
         h_landmark = self.encoder_landmark(obs_landmark)
         r_landmark = self.aggregate(h_landmark, observation_mask=observation_mask[1])
+
+        #encode joints
         if obs_joint != None:
+        # if joints are not none, encode joints and blend 2 encodings
             h_joint = self.encoder_joint(obs_joint)
             r_joint = self.aggregate(h_joint, observation_mask=observation_mask[0])
             p = torch.rand((r_joint.shape[0], 1))
             r = r_joint * p + r_landmark * (1-p)
         else:
+        # joints can be none, in this case, only landmarks are used to generate the latent 
             r = r_landmark
 
-        h_cat = self.concatenate(r, target_joint)
+        # concatenate target timesteps to encoding
+        h_cat = self.concatenate(r, target_timesteps)
+
+        # decode the h_cat for each embodiment
         query_joint = self.query_joint(h_cat)
         query_landmark = self.query_landmark(h_cat)
-        mean_joint = query_joint[..., :5]
-        logstd_joint = query_joint[..., 5:]
+
+        # divide the outputs to mean and std
+        
+        # dy is joint dimension, its important to store that since joints can be none
+        mean_joint = query_joint[..., :self.d_y]
+        logstd_joint = query_joint[..., self.d_y:]
+        std_joint = torch.nn.functional.softplus(logstd_joint) + self.min_std
+        
         mean_landmark = query_landmark[..., :obs_landmark.shape[-1]-1]
         logstd_landmark = query_landmark[..., obs_landmark.shape[-1]-1:]
-        std_joint = torch.nn.functional.softplus(logstd_joint) + self.min_std
         std_landmark = torch.nn.functional.softplus(logstd_landmark) + self.min_std
+        
         return mean_joint,  std_joint, mean_landmark, std_landmark
