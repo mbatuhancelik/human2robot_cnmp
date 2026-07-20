@@ -4,7 +4,7 @@ This repository contains the code for transferring a reaching skill between a hu
 
 The original blending-CNMP framework learns a shared latent space between robots with different morphologies from clean, robot-to-robot sensorimotor data. This project extends it to a human-in-the-loop setting: human arm-reaching movements are captured with an Intel RealSense camera + MediaPipe, filtered and normalized to counteract the low-frequency drift inherent to vision-based tracking, and used alongside Torobo joint-space trajectories to train a shared latent space. Once trained, a demonstration from either side (human or robot) can generate the corresponding trajectory for the other — including bridging the gap between human Cartesian hand coordinates and Torobo's joint-space control.
 
-A full write-up (background, method, results) is available on my website: **[Project page →](mbatuhancelik.github.io/portfolio/correspondence_learning)**
+A full write-up (background, method, results) is available on my website: **[Project page →](#)** *(replace with your actual page URL)*
 
 **Demo video (human → robot transfer):** https://www.youtube.com/watch?v=71mbbTE65yU
 
@@ -20,7 +20,9 @@ This project extends that framework to a human demonstrator, which introduces tw
 - **Noisy, vision-based input.** Human trajectories tracked with a RealSense camera + MediaPipe carry low-frequency drift and spatial wobble, which the blending-CNMP encoder turned out to be quite sensitive to. A filtering/normalization pipeline (`data.py`) conditions the raw tracked trajectories before they reach the encoder.
 - **Cartesian-to-joint-space mapping.** The human side is tracked in Cartesian wrist coordinates; the Torobo side trains and decodes directly in joint space, so the shared latent representation has to implicitly bridge that gap as well.
 
-See the [project page](#) for the full method description and results (max end-effector error ≈ 3 cm across validation trials, bidirectional transfer).
+**Data collection.** Demonstrations follow a shared start/target layout: one start position and several target positions spaced 30° apart around it, forming the half-circle reaching workspace used throughout this project. Human demonstrations move the hand from anywhere in the start region to one of the targets, tracked in real time with MediaPipe pose estimation; Torobo demonstrations use the same start/target layout, with the robot's joint-space trajectory to each target generated via inverse kinematics rather than manual driving.
+
+See the [project page](#) for the full method description, a figure of the data collection setup, and results (max end-effector error ≈ 3 cm across validation trials, bidirectional transfer).
 
 ## Repository Structure
 
@@ -88,4 +90,4 @@ which itself builds on:
 
 ## Acknowledgments
 
-This project was completed during a summer internship at the Symbiotic Intelligent Systems Research Center (SISREC), Osaka University under supervision of Prof. Erhan Öztop, with the experiment idea proposed by Prof. Minoru Asada.
+This project was completed during a summer internship at the Symbiotic Intelligent Systems Research Center (SISREC), Osaka University, as a member of the Colors Lab at Boğaziçi University under Prof. Emre Uğur, with the experiment idea proposed by Prof. Minoru Asada.
