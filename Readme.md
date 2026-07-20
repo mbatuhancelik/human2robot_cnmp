@@ -88,4 +88,4 @@ which itself builds on:
 
 ## Acknowledgments
 
-This project was completed during a summer internship at the Symbiotic Intelligent Systems Research Center (SISREC), Osaka University, as a member of the Colors Lab at Boğaziçi University under Prof. Emre Uğur, with the experiment idea proposed by Prof. Minoru Asada.
+This project was completed during a summer internship at the Symbiotic Intelligent Systems Research Center (SISREC), Osaka University under supervision of Prof. Erhan Öztop, with the experiment idea proposed by Prof. Minoru Asada.
